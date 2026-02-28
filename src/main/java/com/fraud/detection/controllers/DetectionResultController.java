@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @RestController
-public class ImageUploadController {
+public class DetectionResultController {
     @Value("${supabase.storage.url}")
     private String supabaseUrl;
 
