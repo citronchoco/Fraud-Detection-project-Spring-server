@@ -1,4 +1,4 @@
-package com.fraud.detection.controllers;
+package com.fraud.detection.controller;
 
 import com.fraud.detection.dto.FraudResponseDTO;
 import com.fraud.detection.enums.FraudStatus;
