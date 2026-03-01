@@ -1,12 +1,14 @@
 package com.fraud.detection.controller;
 
-import com.fraud.detection.enums.FraudStatus;
+import com.fraud.detection.dto.FraudResponseDTO;
 import com.fraud.detection.service.DetectionResultService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @RestController
@@ -16,20 +18,24 @@ public class DetectionResultController {
     private final DetectionResultService detectionResultService;
 
     @PostMapping("/upload-images")
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
+    public FraudResponseDTO uploadImage(
+            @RequestParam("files") List<MultipartFile> files,
+            @RequestParam("scamType") String scamType,
+            @RequestParam("imageType") String imageType
+    ) {
 
         // 클라이언트로부터 파일 받아오기
 
         try{
-            FraudStatus status = detectionResultService.processDetection(file);
+            return detectionResultService.processDetection(files, scamType, imageType);
 
-          if (status == FraudStatus.FRAUD) return "사기";
-          else if (status == FraudStatus.NORMAL) return "정상";
-          else if (status == FraudStatus.SUSPICIOUS) return "의심됨";
-
-          return "something's wrong.";
+//          if (status == FraudStatus.FRAUD) return "사기";
+//          else if (status == FraudStatus.NORMAL) return "정상";
+//          else if (status == FraudStatus.SUSPICIOUS) return "의심됨";
+//
+//          return "something's wrong.";
         }catch (Exception e){
-            return "에러 발생: " + e.getMessage();
+            throw new RuntimeException("분석 중 에러 발생: " + e.getMessage());
         }
     }
 }

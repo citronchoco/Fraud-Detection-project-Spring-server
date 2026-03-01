@@ -30,7 +30,7 @@ public class TestController {
     public String uploadTestImage(@RequestParam("file") MultipartFile file) {
 
         System.out.println("컨트롤러 진입 성공!");
-        String url = "http://localhost:8000/test";
+        String url = "http://localhost:8000/predict";
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", file.getResource());

@@ -17,16 +17,12 @@ public class DetectionResult {
     @Column(nullable = false, unique = true)
     private String verificationId;
 
-    @Column(nullable = false)
-    private String imageUrl;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FraudStatus  status;
 
-    public DetectionResult(String verificationId, String imageUrl, FraudStatus status) {
+    public DetectionResult(String verificationId, FraudStatus status) {
         this.verificationId = verificationId;
-        this.imageUrl = imageUrl;
         this.status = status;
     }
 }
